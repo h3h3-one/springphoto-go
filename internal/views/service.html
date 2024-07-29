@@ -1,0 +1,146 @@
+{{if .Auth}}
+<style>
+    .form-style-6{
+        font: 95% Arial, Helvetica, sans-serif;
+        max-width: 400px;
+        margin: 10px auto;
+        padding: 16px;
+        background: #F7F7F7;
+    }
+    .form-style-6 h1{
+        background: #43D1AF;
+        padding: 20px 0;
+        font-size: 140%;
+        font-weight: 300;
+        text-align: center;
+        color: #fff;
+        margin: -16px -16px 16px -16px;
+    }
+</style>
+
+{{end}}
+
+<div class="site-section"  data-aos="fade">
+    <div class="container-fluid ">
+
+        {{if .Auth}}
+        <form action="https://springphoto.ru/admin/service" method="post" enctype="multipart/form-data" class="max-w-sm mx-auto">
+            <div class="mb-3">
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
+                <input type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+            </div>
+            <div class="mb-3">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Описание</label>
+                <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Цена</label>
+                <input type="text" id="price" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+            </div>
+            <div class="mb-3">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image-service">Обложка</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="image-service" name="image-service" type="file">
+            </div>
+            <div class="mb-3">
+                <button style="background-color: #20c997" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-100"><b>Добавить услугу</b></button>
+            </div>
+        </form>
+        <br>
+        {{end}}
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-7">
+                <div class="row mb-5">
+                    <div class="col-12 ">
+                        <h2 class="site-section-heading text-center">Услуги</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            {{range .Services}}
+                <div class="col-md-6 col-lg-6 col-xl-4 text-center mb-5 mb-lg-5 ">
+                    <div class="h-100 p-4 p-lg-5 site-block-feature-7 ">
+                        <img src="{{.PathImage}}" alt="Image" class="img-fluid">
+                        <br>
+                        <h3 class="text-white h4">{{.Title}}</h3>
+                        {{if $.Auth}}
+                        <button value="{{.Id}}" class="position-absolute top-2 end-5" onclick="deleteService(this)">
+                            <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        </button>
+                        <button class="position-absolute top-30 start-5 translate-middle-y" value="{{.Id}}" name="left" onclick="swapService(this)">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="position-absolute top-30 end-5 translate-middle-y" value="{{.Id}}" name="right" onclick="swapService(this)">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                            </svg>
+                        </button>
+                        {{end}}
+                        <p>{{.Description}}</p>
+                        <p><strong class="font-weight-bold text-primary">{{.Price}} ₽</strong></p>
+                    </div>
+                </div>
+            {{end}}
+
+        </div>
+    </div>
+</div>
+
+
+{{if .Auth}}
+
+<script>
+    function deleteService(e) {
+        const question = confirm("Are you sure?")
+        if (question) {
+            fetch("/admin/service", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: "id="+e.value
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if(res.error){
+                        alert(res.error)
+                    } else {
+                        alert(res.successfully)
+                        window.location = "/service"
+                    }
+                })
+        }
+    }
+
+    function swapService(e) {
+        fetch("/admin/service/swap", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: parseInt(e.value),
+                shift: e.name
+            })
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if(res.error){
+                    alert(res.error)
+                } else {
+                    alert(res.successfully)
+                    window.location = "/service"
+                }
+            })
+    }
+</script>
+
+{{end}}

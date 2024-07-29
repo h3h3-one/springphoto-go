@@ -1,0 +1,75 @@
+<div class="container-fluid" data-aos="fade" data-aos-delay="500">
+    <div class="row" data-masonry='{"percentPosition": true }'>
+
+        {{range .AllAlbums}}
+        <div class="col-lg-4">
+            <div class="image-wrap-2">
+                <div class="image-info">
+                    <h2 class="mb-3">{{.TitleAlbum}}</h2>
+                    <a href="https://springphoto.ru/albums/{{.NameAlbum}}" class="btn btn-outline-white py-2 px-4">Больше фото</a>
+                    {{if $.Auth}}
+                    <br>
+                    <br>
+                    <button class="btn btn-outline-white py-2 px-3" value="{{.IdAlbum}}" name="left" onclick="swapAlbum(this)"><</button>
+                    <button class="btn btn-outline-white py-2 px-3" value="{{.IdAlbum}}" name="right" onclick="swapAlbum(this)">></button>
+                    <br>
+                    <br>
+                    <button class="btn btn-outline-white py-2 px-4" onclick="deleteAlbum(this)" value="{{.NameAlbum}}">Удалить</button>
+                    {{end}}
+                </div>
+                <img src="https://springphoto.ru/{{.PathCover}}" alt="Image" class="img-fluid">
+            </div>
+        </div>
+        {{end}}
+
+
+    </div>
+</div>
+
+{{if .Auth}}
+<script>
+    function deleteAlbum(e) {
+        const question = confirm("Are you sure?")
+        if (question) {
+            fetch("/admin/album", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: "id="+e.value
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                if(res.error){
+                    alert(res.error)
+                } else {
+                    alert(res.successfully)
+                    window.location = "/"
+                }
+            })
+        }
+    }
+    
+    function swapAlbum(e) {
+        fetch("/admin/album/swap", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: parseInt(e.value),
+                shift: e.name
+            })
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if(res.error){
+                    alert(res.error)
+                } else {
+                    alert(res.successfully)
+                    window.location = "/"
+                }
+            })
+    }
+</script>
+{{end}}

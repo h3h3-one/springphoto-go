@@ -1,0 +1,67 @@
+/* Reset default browser styles for a more consistent base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container for form elements (optional for basic layout) */
+.form-container {
+    width: 100%; /* Ensures full width on all devices */
+    max-width: 500px; /* Adjust as needed for desired maximum width */
+    margin: 0 auto; /* Centers the form horizontally */
+    padding: 20px; /* Adds some padding for better readability */
+}
+
+/* Labels and input elements */
+label {
+    display: block; /* Makes labels appear on separate lines */
+    margin-bottom: 5px; /* Spacing between label and input */
+    font-weight: bold;
+}
+
+input[type="file"] {
+    width: 100%; /* Makes input field fill the available width */
+    padding: 5px;
+    border: 1px solid #ccc; /* Basic border styling */
+    border-radius: 4px; /* Rounded corners for a smoother look */
+    cursor: pointer; /* Indicates hover/click behavior */
+}
+
+/* Customizing the "Choose images..." text (optional) */
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #f0f0f0; /* Background color for button */
+    color: #333; /* Text color for button */
+    padding: 8px 10px; /* Adjust padding as desired */
+    border: none; /* Removes default button border */
+    border-radius: 4px; /* Matches input field border radius */
+    cursor: pointer; /* Indicates hover/click behavior */
+}
+
+input[type="file"]::file-selector-button {
+    /* Similar styles for Firefox and other browsers */
+}
+
+/* Preview sections (optional) */
+.previewCover,
+.previewAlbum {
+    margin-top: 10px; /* Spacing after preview text */
+    font-style: italic;
+    color: #999;
+}
+
+/* Button */
+button {
+    width: 100%; /* Fills the available width */
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Adjust color as desired */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+button:hover {
+    background-color: #3e8e41; /* Adjust hover color as desired */
+}
